@@ -9,7 +9,7 @@ const port = 3000
 
 const todos = [
   {
-    id: "1",
+    _id: "1",
     task: "Learn the backend",
   },
 ]
@@ -21,18 +21,18 @@ app.post("/api/todo", (req, res) => {
   if (!task) return res.send({ error: "Missing data" })
 
   const newTodo = {
-    id: `${Number(todos.at(-1).id) + 1}`,
+    _id: `${Number(todos.at(-1)._id) + 1}`,
     task,
   }
 
   todos.push(newTodo)
 
-  res.send(newTodo)
+  res.send({ data: newTodo })
 })
 
 // Read
 app.get("/api/todos", (req, res) => {
-  return res.send(todos)
+  return res.send({ data: todos })
 })
 
 // Update
@@ -48,9 +48,10 @@ app.put("/api/todo/:id", (req, res) => {
 
 // Delete
 app.delete("/api/todo/:id", (req, res) => {
+  console.log(req.params)
   const todoId = req.params.id
 
-  const todoIndex = todos.findIndex((todo) => todo.id === todoId)
+  const todoIndex = todos.findIndex((todo) => todo._id === todoId)
 
   if (todoIndex < 0) {
     return res.send("todo not found")

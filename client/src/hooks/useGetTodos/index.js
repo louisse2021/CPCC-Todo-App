@@ -12,7 +12,7 @@ export const useGetTodos = () => {
       })
 
       const jsonData = await resp.json()
-      console.log(jsonData.data)
+
       setData(jsonData.data)
       setLoading(false)
     }
