@@ -23,9 +23,17 @@ createTodo = async (req, res) => {
  *
  */
 getTodos = async (req, res) => {
-  return res.status(500).json({ success: false })
-}
+  const documents = await Todo.find({})
+  console.log(documents)
+  
+  if (!documents.length > 0) {
 
+    return res.status(200).send({data:documents, success: true})
+  }
+    return res.status(500).json({ success: false })
+  }
+  
+   
 /**
  *
  * Mongoose API
